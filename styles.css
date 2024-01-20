@@ -1,3 +1,11 @@
+:root {
+    --color-red: #e25041;
+    --color-dark-blue: #0e1f3c;
+    --color-green: #1cbd9e;
+    --color-yellow: #FAFF00;
+
+}
+
 .wrapper {
     display: grid;
     grid-template-columns: 1fr;
