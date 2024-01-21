@@ -9,25 +9,26 @@
     <script type="text/javascript" src="script.js" defer></script>
 </head>
 <body class="bg-dark-blue font-poppins">
-    <div class="min-h-screen flex flex-col justify-evenly">
-        <p class="title font-audiowide text-4xl sm:text-6xl md:text-8xl font-bold text-center text-green">TIC TAC TOE</p>
-        <p class="message text-xl sm:text-2xl md:text-4xl font-bold text-center text-white py-2"><span class="mark text-red">X</span> turn</p>
+    <div class="h-screen flex flex-col justify-evenly">
+            <p class="title font-audiowide max-sm:text-2xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-center text-green">TIC TAC TOE</p> <!-- py-6 -->
+            <p class="message max-sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center text-white py-2"><span class="mark text-red">X</span> turn</p>
         <div class="wrapper flex justify-center">
             <div class="grid-container grid grid-cols-3">
-                <button class="grid-item p-20 bg-blue-500 border-4 border-blue-700 text-white text-2xl font-bold flex items-center justify-center">1</button>
-                <button class="grid-item p-20 bg-blue-500 border-4 border-blue-700 text-white text-2xl font-bold flex items-center justify-center">2</button>
-                <button class="grid-item p-20 bg-blue-500 border-4 border-blue-700 text-white text-2xl font-bold flex items-center justify-center">3</button>
-                <button class="grid-item p-20 bg-blue-500 border-4 border-blue-700 text-white text-2xl font-bold flex items-center justify-center">4</button>
-                <button class="grid-item p-20 bg-blue-500 border-4 border-blue-700 text-white text-2xl font-bold flex items-center justify-center">5</button>
-                <button class="grid-item p-20 bg-blue-500 border-4 border-blue-700 text-white text-2xl font-bold flex items-center justify-center">6</button>
-                <button class="grid-item p-20 bg-blue-500 border-4 border-blue-700 text-white text-2xl font-bold flex items-center justify-center">7</button>
-                <button class="grid-item p-20 bg-blue-500 border-4 border-blue-700 text-white text-2xl font-bold flex items-center justify-center">8</button>
-                <button class="grid-item p-20 bg-blue-500 border-4 border-blue-700 text-white text-2xl font-bold flex items-center justify-center">9</button>
+                <button class="grid-item max-sm:p-8 md:p-14 lg:p-20 xl:p-24 bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center">1</button>
+                <button class="grid-item max-sm:p-8 md:p-14 lg:p-20 xl:p-24 bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center">2</button>
+                <button class="grid-item max-sm:p-8 md:p-14 lg:p-20 xl:p-24 bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center">3</button>
+                <button class="grid-item max-sm:p-8 md:p-14 lg:p-20 xl:p-24 bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center">4</button>
+                <button class="grid-item max-sm:p-8 md:p-14 lg:p-20 xl:p-24 bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center">5</button>
+                <button class="grid-item max-sm:p-8 md:p-14 lg:p-20 xl:p-24 bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center">6</button>
+                <button class="grid-item max-sm:p-8 md:p-14 lg:p-20 xl:p-24 bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center">7</button>
+                <button class="grid-item max-sm:p-8 md:p-14 lg:p-20 xl:p-24 bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center">8</button>
+                <button class="grid-item max-sm:p-8 md:p-14 lg:p-20 xl:p-24 bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center">9</button>
             </div>
         </div>
         <div class="flex justify-center">
-            <button class="bg-green p-2 sm:p-3 text-xl sm:text-2xl md:text-3xl rounded-full w-28 sm:w-40 text-white font-bold border-2 md:border-4 border-solid border-red">RESTART</button>
-        </div>
+            <button class="bg-green rounded-full sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl
+                max-sm:p-2 md:p-3 lg:p-4 xl:p-4 text-white font-bold border-4 border-solid border-red">RESTART</button>
+        </div>  
     </div>
 </body>
 </html>
