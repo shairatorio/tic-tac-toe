@@ -1,3 +1,13 @@
+const mark = document.getElementById('mark');
+const restartBtn = document.getElementById('restartBtn');
+const buttonsArray = document.querySelectorAll('[data-index]');
+let currentPlayer = 'X';
+
+// Player module
+const Player = (name, mark) => ({ name, mark });
+const player1 = Player("Alice", "X");
+const player2 = Player("Bob", "O");
+
 // Gameboard module
 const Gameboard = (() => {
     const board = [
@@ -6,16 +16,131 @@ const Gameboard = (() => {
         ["", "", ""]
     ];
 
+    function getBoard() {
+        return board;
+    }
+
+    return {
+        getBoard,
+    };
+})();
+
+// DisplayController module
+const DisplayController = (() => {
+    function resetBoard() {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                Gameboard.getBoard()[i][j] = "";
+            }
+        }
+    }
+
+    function isBoardFull() {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (Gameboard.getBoard()[i][j] === "") {
+                    return false; // There's an empty cell, the board is not full
+                }
+            }
+        }
+        return true; // The board is full (tie)
+    }
+
+    function isGameOver() {
+        return getWinner() || isBoardFull();
+    }
+
+    function getWinnerInfo() {
+        const winnerMark = getWinner();
+        if (winnerMark) {
+            const winnerName = winnerMark === player1.mark ? player1.name : player2.name;
+            return { name: winnerName, mark: winnerMark };
+        }
+        return null; // No winner found
+    }
+
+    function getWinner() {
+        return GameController.checkRows() || GameController.checkColumns() || GameController.checkDiagonals();
+    }
+
+    function handleButtonClick(event) {
+        const clickedButtonIndex = parseInt(event.target.dataset.index);
+
+        if (isValidMove(clickedButtonIndex)) {
+            const [row, col] = getRowAndColumn(clickedButtonIndex);
+            if (GameController.placeMark(row, col, currentPlayer)) {
+                event.target.innerText = currentPlayer;
+                if (checkGameOver()) {
+                    announceWinner();
+                } else {
+                    togglePlayer();
+                }
+            }
+        }
+    }
+
+    function togglePlayer() {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        mark.innerText = currentPlayer;
+    }
+
+    function announceWinner() {
+        const winnerInfo = getWinnerInfo();
+        if (winnerInfo) {
+            console.log(`The winner is ${winnerInfo.name} with mark ${winnerInfo.mark}`);
+            // Handle game over actions, e.g., display winner, show restart button, etc.
+        } else if (isBoardFull()) {
+            console.log("It's a tie!");
+            // Handle tie actions, e.g., show restart button, etc.
+        }
+    }
+
+    function handleRestartClick() {
+        // Implement logic to reset the game
+        buttonsArray.forEach(button => {
+            button.innerText = '';
+        });
+        resetBoard();
+        currentPlayer = 'X';
+        mark.innerText = currentPlayer;
+    }
+
+    function isValidMove(index) {
+        const [row, col] = getRowAndColumn(index);
+        return Gameboard.getBoard()[row][col] === "";
+    }
+
+    function getRowAndColumn(index) {
+        const row = Math.floor(index / 3);
+        const col = index % 3;
+        return [row, col];
+    }
+
+    function checkGameOver() {
+        return isGameOver();
+    }
+
+    return {
+        resetBoard,
+        isBoardFull,
+        isGameOver,
+        getWinnerInfo,
+        getWinner,
+        handleButtonClick,
+        handleRestartClick,
+    };
+})();
+
+// GameController module
+const GameController = (() => {
+    const board = Gameboard.getBoard();
+
     function placeMark(row, col, mark) {
         if (board[row][col] === "") {
             board[row][col] = mark;
             return true;
         }
         return false; // The cell is already occupied
-    }
-
-    function isGameOver() {
-        return getWinner() || isBoardFull();
     }
 
     function checkLine(cell1, cell2, cell3) {
@@ -49,78 +174,33 @@ const Gameboard = (() => {
         return null; // No winning diagonal found
     }
 
-    function getWinner() {
-        return checkRows() || checkColumns() || checkDiagonals();
+    function isValidMove(index) {
+        const [row, col] = getRowAndColumn(index);
+        return Gameboard.getBoard()[row][col] === "";
     }
 
-    function getWinnerInfo() {
-        const winnerMark = getWinner();
-        if (winnerMark) {
-            const winnerName = winnerMark === player1.mark ? player1.name : player2.name;
-            return { name: winnerName, mark: winnerMark };
-        }
-        return null; // No winner found
+    function getRowAndColumn(index) {
+        const row = Math.floor(index / 3);
+        const col = index % 3;
+        return [row, col];
     }
 
-    function isBoardFull() {
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                if (board[i][j] === "") {
-                    return false; // There's an empty cell, the board is not full
-                }
-            }
-        }
-        return true; // The board is full (tie)
-    }
-
-    function getBoard() {
-        return board;
+    function checkGameOver() {
+        return DisplayController.isGameOver();
     }
 
     return {
         placeMark,
-        isGameOver,
-        getBoard,
-        getWinnerInfo
+        checkLine,
+        checkRows,
+        checkColumns,
+        checkDiagonals
     };
 })();
 
-const DisplayController = (() => {
-    function renderBoard() {
-        const board = Gameboard.getBoard();
-        // Implement logic to render the board on the webpage
-        // ...
-    }
+// Event Listeners
+buttonsArray.forEach(button => {
+    button.addEventListener('click', DisplayController.handleButtonClick);
+});
 
-    return {
-        renderBoard
-    };
-})();
-
-const Player = (name, mark) => {
-    return { name, mark };
-};
-
-const player1 = Player("Alice", "X");
-const player2 = Player("Bob", "O");
-
-// Example moves
-Gameboard.placeMark(0, 0, player1.mark);
-Gameboard.placeMark(0, 1, player2.mark);
-Gameboard.placeMark(1, 1, player1.mark);
-Gameboard.placeMark(1, 0, player2.mark);
-Gameboard.placeMark(1, 2, player1.mark);
-Gameboard.placeMark(2, 0, player2.mark);
-Gameboard.placeMark(2, 2, player1.mark);
-
-console.log(Gameboard.getBoard());
-
-const winnerInfo = Gameboard.getWinnerInfo();
-if (winnerInfo) {
-    console.log(`The winner is ${winnerInfo.name} with mark ${winnerInfo.mark}`);
-} else {
-    console.log("No winner");
-}
-
-// Display the board
-DisplayController.renderBoard();
+restartBtn.addEventListener('click', DisplayController.handleRestartClick);
