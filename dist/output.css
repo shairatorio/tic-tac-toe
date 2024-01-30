@@ -654,13 +654,16 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-* {
-  /* border: 1px solid yellow; */
-}
-
 .title {
   letter-spacing: 1rem;
   text-shadow: -0.1em 0px 0px #e25041;
+}
+
+.index {
+  width: 20vw;
+  height: 20vw;
+  max-width: 100px;
+  max-height: 100px;
 }
 
 @media not all and (min-width: 640px) {
@@ -711,12 +714,12 @@ video {
 }
 
 @media (min-width: 1024px) {
-  .lg\:p-20 {
-    padding: 5rem;
-  }
-
   .lg\:p-4 {
     padding: 1rem;
+  }
+
+  .lg\:p-40 {
+    padding: 10rem;
   }
 
   .lg\:text-4xl {
@@ -758,4 +761,4 @@ video {
     font-size: 6rem;
     line-height: 1;
   }
-}
+} 

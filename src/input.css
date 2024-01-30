@@ -10,13 +10,16 @@
 
 }
 
-@layer utilities {
-    * {
-        /* border: 1px solid yellow; */
-    }
-
+@layer utilities {  
     .title {
         letter-spacing: 1rem;
         text-shadow: -0.1em 0px 0px #e25041;
     }
-}
+
+    .index {
+        width: 20vw; 
+        height: 20vw; 
+        max-width: 100px; 
+        max-height: 100px;
+    }
+} 
