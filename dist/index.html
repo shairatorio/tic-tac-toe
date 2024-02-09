@@ -11,7 +11,7 @@
 <body class="bg-dark-blue font-poppins">
     <div class="h-screen flex flex-col justify-evenly">
             <p class="title font-audiowide max-sm:text-2xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-center text-green">TIC TAC TOE</p> <!-- py-6 -->
-            <p class="message max-sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center text-white py-2"><span id="mark" class="text-red">X</span> turn</p>
+            <p id="message" class="max-sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center text-white py-2"><span id="mark" class="text-red">X</span> turn</p>
         <div class="wrapper flex justify-center">
             <div class="grid grid-cols-3">
                 <button data-index="0" type="button" class="index max-sm:p-8 md:p-14 lg:p-40 xl:p-24 max-sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl bg-blue-500 border-4 border-blue-700 text-white font-bold flex items-center justify-center"></button>
@@ -30,5 +30,8 @@
                 max-sm:p-2 md:p-3 lg:p-4 xl:p-4 text-white font-bold border-4 border-solid border-red">RESTART</button>
         </div>  
     </div>
+    <audio data-key='mark' src="../resources/audio/mark-audio.mp3"></audio>
+    <audio data-key='won' src="../resources/audio/won-audio.mp3"></audio>
+    <audio data-key='tie' src="../resources/audio/tie-audio.mp3"></audio>
 </body>
 </html>
