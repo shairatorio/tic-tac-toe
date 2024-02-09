@@ -61,7 +61,6 @@ const DisplayController = (() => {
     function getWinnerInfo() {
         const winnerMark = getWinner();
         if (winnerMark) {
-            constwinnerName = winnerMark === player1.mark ? player1.mark : player2.mark;
             return { mark: winnerMark };
         }
         return null; // No winner found
@@ -78,6 +77,8 @@ const DisplayController = (() => {
             const [row, col] = getRowAndColumn(clickedButtonIndex);
             if (GameController.placeMark(row, col, currentPlayer)) {
                 event.target.innerText = currentPlayer;
+                event.target.style.color = currentPlayer === 'X' ? '#e25041' : '#1cbd9e';
+                mark.style.color = currentPlayer === 'X' ? '#1cbd9e' : '#e25041';
                 audio(markSound);
                 if (checkGameOver()) {
                     announceWinner();
@@ -103,7 +104,9 @@ const DisplayController = (() => {
     function announceWinner() {
         const winnerInfo = getWinnerInfo();
         if (winnerInfo) {
-            message.innerText = `The winner is with mark ${winnerInfo.mark}`;
+            const winningMark = winnerInfo.mark;
+            const color = winningMark === 'X' ? '#e25041' : '#1cbd9e';
+            message.innerHTML = `Player <span style="color: ${color}">${winningMark}</span> is the winner!`;
             audio(wonSound);
         } else if (isBoardFull()) {
             message.innerText = `It's a tie!`;
