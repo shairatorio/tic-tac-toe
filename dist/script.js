@@ -1,12 +1,20 @@
 const mark = document.getElementById('mark');
+const message = document.getElementById('message');
 const restartBtn = document.getElementById('restartBtn');
 const buttonsArray = document.querySelectorAll('[data-index]');
+const markSound = document.querySelector(`audio[data-key='mark']`);
+const wonSound = document.querySelector(`audio[data-key='won']`);
+const tieSound = document.querySelector(`audio[data-key='tie']`);
+const btnList = document.querySelectorAll('button');
 let currentPlayer = 'X';
 
+const player1 = createPlayer("X");
+const player2 = createPlayer("O");
+
 // Player module
-const Player = (name, mark) => ({ name, mark });
-const player1 = Player("Alice", "X");
-const player2 = Player("Bob", "O");
+function createPlayer(mark) {
+    return { mark };
+}
 
 // Gameboard module
 const Gameboard = (() => {
@@ -27,13 +35,13 @@ const Gameboard = (() => {
 
 // DisplayController module
 const DisplayController = (() => {
-    function resetBoard() {
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                Gameboard.getBoard()[i][j] = "";
-            }
-        }
-    }
+    // function resetBoard() {
+    //     for (let i = 0; i < 3; i++) {
+    //         for (let j = 0; j < 3; j++) {
+    //             Gameboard.getBoard()[i][j] = "";
+    //         }
+    //     }
+    // }
 
     function isBoardFull() {
         for (let i = 0; i < 3; i++) {
@@ -53,8 +61,8 @@ const DisplayController = (() => {
     function getWinnerInfo() {
         const winnerMark = getWinner();
         if (winnerMark) {
-            const winnerName = winnerMark === player1.mark ? player1.name : player2.name;
-            return { name: winnerName, mark: winnerMark };
+            constwinnerName = winnerMark === player1.mark ? player1.mark : player2.mark;
+            return { mark: winnerMark };
         }
         return null; // No winner found
     }
@@ -70,13 +78,21 @@ const DisplayController = (() => {
             const [row, col] = getRowAndColumn(clickedButtonIndex);
             if (GameController.placeMark(row, col, currentPlayer)) {
                 event.target.innerText = currentPlayer;
+                audio(markSound);
                 if (checkGameOver()) {
                     announceWinner();
+                    disableButtons();
                 } else {
                     togglePlayer();
                 }
             }
         }
+    }
+
+    function disableButtons() {
+        for (let i = 0; i < 9; i++) {
+            btnList[i].disabled = true;
+        }b
     }
 
     function togglePlayer() {
@@ -87,22 +103,23 @@ const DisplayController = (() => {
     function announceWinner() {
         const winnerInfo = getWinnerInfo();
         if (winnerInfo) {
-            console.log(`The winner is ${winnerInfo.name} with mark ${winnerInfo.mark}`);
-            // Handle game over actions, e.g., display winner, show restart button, etc.
+            message.innerText = `The winner is with mark ${winnerInfo.mark}`;
+            audio(wonSound);
         } else if (isBoardFull()) {
-            console.log("It's a tie!");
-            // Handle tie actions, e.g., show restart button, etc.
+            message.innerText = `It's a tie!`;
+            audio(tieSound);
         }
     }
 
     function handleRestartClick() {
         // Implement logic to reset the game
-        buttonsArray.forEach(button => {
-            button.innerText = '';
-        });
-        resetBoard();
-        currentPlayer = 'X';
-        mark.innerText = currentPlayer;
+        // buttonsArray.forEach(button => {
+        //     button.innerText = '';
+        // });
+        // resetBoard();
+        // currentPlayer = 'X';
+        // mark.innerText = currentPlayer;
+        location.reload();
     }
 
     function isValidMove(index) {
@@ -120,8 +137,12 @@ const DisplayController = (() => {
         return isGameOver();
     }
 
+    function audio(sound) {
+        sound.play();
+    }
+
     return {
-        resetBoard,
+        // resetBoard,
         isBoardFull,
         isGameOver,
         getWinnerInfo,
@@ -172,21 +193,6 @@ const GameController = (() => {
             return board[0][2]; // Return the winning mark
         }
         return null; // No winning diagonal found
-    }
-
-    function isValidMove(index) {
-        const [row, col] = getRowAndColumn(index);
-        return Gameboard.getBoard()[row][col] === "";
-    }
-
-    function getRowAndColumn(index) {
-        const row = Math.floor(index / 3);
-        const col = index % 3;
-        return [row, col];
-    }
-
-    function checkGameOver() {
-        return DisplayController.isGameOver();
     }
 
     return {
