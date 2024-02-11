@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-![Screenshot of Desktop View](https://github.com/shairatorio/tic-tac-toe/blob/develop/resources/images/tic-tac-toe.png?raw=true)
+![Screenshot of Desktop View](https://github.com/shairatorio/tic-tac-toe/blob/main/resources/images/tic-tac-toe.png?raw=true)
 
 Developed a Tic Tac Toe game using Tailwind Framework and Javascript for my project in [The Odin Project](https://www.theodinproject.com/) Curriculum.
 
