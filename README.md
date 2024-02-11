@@ -4,7 +4,7 @@
 
 Developed a Tic Tac Toe game using Tailwind Framework and Javascript for my project in [The Odin Project](https://www.theodinproject.com/) Curriculum.
 
-🔗 Live preview ➮ [tic-tac-toe](https://shairatorio.github.io/tic-tac-toe/)
+🔗 Live preview ➮ [tic-tac-toe](https://shairatorio.github.io/tic-tac-toe/build/index.html)
 
 ## Overview
 Tic Tac Toe is a classic two-player game where players take turns marking spaces in a 3x3 grid with their respective symbols (usually X and O) with the objective of getting three of their symbols in a row, column, or diagonal. This project aims to implement a digital version of the Tic Tac Toe game with several features for an enjoyable gaming experience.

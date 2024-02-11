@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tailwind": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./build/output.css --watch",
     "prettier": "prettier --write **/*.html"
   },
   "keywords": [],
